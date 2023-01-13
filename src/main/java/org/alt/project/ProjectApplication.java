@@ -3,9 +3,7 @@ package org.alt.project;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.alt.project.http.ScanService;
-import org.alt.project.model.ScanTask;
 import org.alt.project.repository.ScanResultRepository;
-import org.alt.project.scanner.ScanUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,11 +13,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @EnableJpaRepositories
