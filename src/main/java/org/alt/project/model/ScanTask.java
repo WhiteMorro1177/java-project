@@ -24,20 +24,6 @@ public class ScanTask {
         this.result = "Task is not ready yet";
     }
 
-    public ScanTask(Integer id, String path, String result) {
-        this.id = id;
-        this.path = path;
-        this.status = false;
-        this.result = result;
-    }
-
-    public ScanTask(Integer id, String path) {
-        this.id = id;
-        this.path = path;
-        this.status = false;
-        this.result = "Task is not ready yet";
-    }
-
     public Integer getId() { return id; }
     public String getPath() { return path; }
     public Boolean getStatus() { return status; }
@@ -48,13 +34,4 @@ public class ScanTask {
     public void setStatus(Boolean status) { this.status = status; }
     public void setResult(String result) { this.result = result; }
 
-    @Override
-    public String toString() {
-        return "ScanTask {" +
-                "id=" + id +
-                ", path='" + path + '\'' +
-                ", status=" + status +
-                ", result='" + result + '\'' +
-                '}';
-    }
 }

@@ -1,11 +1,9 @@
 package org.alt.project.scanner;
 
-import com.jayway.jsonpath.PathNotFoundException;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Objects;
 
 public class ScanUtil {
@@ -22,7 +20,7 @@ public class ScanUtil {
 
     public String Scan(String path) {
         File dir = new File(path);
-        if (!dir.exists()) { throw new PathNotFoundException("Incorrect path"); } // think about "return"
+        if (!dir.exists()) { return "Invalid path"; }
         if (dir.isDirectory()) {
             for (var nestedDir: Objects.requireNonNull(dir.listFiles())) { Scan(nestedDir.getAbsolutePath()); }
         }

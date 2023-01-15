@@ -3,10 +3,8 @@ package org.alt.project.controller;
 import org.alt.project.model.ScanTask;
 import org.alt.project.repository.ScanResultRepository;
 import org.alt.project.scanner.ScanUtil;
-import org.apache.catalina.Executor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import retrofit.http.Body;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class ScannerController {
                 return task;
             }
         }
-        return new ScanTask(-1, "");
+        return new ScanTask();
     }
 
     @GetMapping("/all")
@@ -42,11 +40,11 @@ public class ScannerController {
 
 
     @PutMapping("/all/new")
-    public String SetTask(@Body String path) {
+    public ScanTask SetTask(@RequestBody() String path) {
         Random random = new Random();
         // check existed ids
         var tasks = repository.findAll();
-        List<Integer> ids = new ArrayList<Integer>();
+        List<Integer> ids = new ArrayList<>();
         for (var task : tasks) {
             ids.add(task.getId());
         }
@@ -56,7 +54,12 @@ public class ScannerController {
         while (ids.contains(newId)) {
             newId = random.nextInt(100);
         }
-        repository.save(new ScanTask(newId, path));
+        ScanTask task = new ScanTask();
+        task.setPath(path);
+        task.setId(newId);
+        task.setResult("Task with id \"" + newId + "\" set");
+        task.setStatus(false);
+        repository.save(task);
 
         // scanning
         final int ID = newId;
@@ -69,7 +72,7 @@ public class ScannerController {
             repository.save(scan);
         });
 
-        return "Task with id {\"" + newId + "\"} set";
+        return task;
     }
 
     @DeleteMapping("/all/delete")
