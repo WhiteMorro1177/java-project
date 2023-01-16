@@ -6,6 +6,7 @@ import org.alt.project.scanner.ScanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +42,14 @@ public class ScannerController {
 
     @PutMapping("/all/new")
     public ScanTask SetTask(@RequestBody() String path) {
+
+        try {
+            File file = new File(path);
+            if (!file.exists()) return new ScanTask(-1, path, false, "Incorrect path");
+        } catch (Exception exc) {
+            return new ScanTask(-1, path, false, "Incorrect path");
+        }
+
         Random random = new Random();
         // check existed ids
         var tasks = repository.findAll();
@@ -68,8 +77,10 @@ public class ScannerController {
             String res = util.Scan(path);
             var scan = repository.findById(ID).orElse(null);
             repository.deleteById(ID);
-            if (scan != null) scan.setResult(res);
-            repository.save(scan);
+            if (scan != null) {
+                scan.setResult(res);
+                repository.save(scan);
+            }
         });
 
         return task;

@@ -20,8 +20,13 @@ public class ScanTask {
     private String result;
 
     public ScanTask() {
-        this.status = false;
-        this.result = "Task is not ready yet";
+    }
+
+    public ScanTask(Integer id, String path, Boolean status, String result) {
+        this.id = id;
+        this.path = path;
+        this.status = status;
+        this.result = result;
     }
 
     public Integer getId() { return id; }
