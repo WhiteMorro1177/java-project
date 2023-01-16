@@ -1,15 +1,14 @@
 package org.alt.project.scanner;
 
-import org.springframework.util.StopWatch;
+import java.time.LocalDateTime;
 
 public class ScanResult {
-    private StopWatch stopwatch;
     private int totalFilesCount;
     private int js;
     private int rmrf;
     private int rundll32;
     private int errors;
-    private String executionTime;
+    private long executionTime;
 
     public ScanResult() {  }
 
@@ -18,6 +17,8 @@ public class ScanResult {
     public void AddRM() { rmrf++; }
     public void AddRund() { rundll32++; }
     public void AddError() { errors++; }
+
+    public void setTime(long executionTime) { this.executionTime = executionTime; }
 
     @Override
     public String toString()
